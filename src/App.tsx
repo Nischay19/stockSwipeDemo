@@ -1,25 +1,45 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import ListingScreen from './components/ListingScreen';
+import PreTrade from './components/PreTrade/PreTrade';
+import Home from './components/Home';
 
-function App() {
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+
+const Stack = createStackNavigator();
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <NavigationContainer>
+      <Stack.Navigator
+        initialRouteName='Home'
+        // screenOptions={{
+          // headerTop: () => (
+          //   <Pressable onPress={() => alert("Menu button pressed!")}>
+          //     <Text style={{ color: "#fff", fontSize: 16 }}>Menu</Text>
+          //   </Pressable>
+          // ),
+        // }}
+      >
+        <Stack.Screen
+          name="Home"
+          component={Home}
+          options={{
+            title: "Navigation title Home",
+          }}
+        />
+        <Stack.Screen
+          name="ListingScreen"
+          component={ListingScreen}
+          options={({ route }) => ({
+            title: route.name,
+          })}
+        />
+        <Stack.Screen 
+          name="PreTrade"
+          component={PreTrade}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
